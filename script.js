@@ -1,51 +1,39 @@
-// Datos del correo simulado
-const email = {
-    sender: "soporte@paypal-servicio.com",
-    subject: "Confirma tu cuenta ahora",
-    body: "Hemos detectado actividad sospechosa en tu cuenta. Haz clic aquí para verificar tu identidad.",
-    attachment: "verificacion.pdf.exe",
-    type: "malicious"
-};
+function highlight(elementId) {
+    // Resetear estilos previos
+    document.querySelectorAll(".email-box *").forEach(el => {
+        if (el.style) {
+            el.style.backgroundColor = "";
+        }
+    });
 
-// Cargar correo al inicio
-document.getElementById("sender").textContent = email.sender;
-document.getElementById("subject").textContent = email.subject;
-document.getElementById("body").textContent = email.body;
-
-if (email.attachment) {
-    document.getElementById("attachment").innerHTML = "<strong>Archivo adjunto:</strong> " + email.attachment;
-}
-
-// Acciones del jugador
-function deleteEmail() {
-    showResult("Correo eliminado correctamente.", "correct");
-}
-
-function reportEmail() {
-    showResult("Correo reportado al departamento de seguridad.", "warning");
-}
-
-function openEmail() {
-    let message, className;
-
-    if (email.type === "safe") {
-        message = "Este correo es seguro. ¡Buen trabajo!";
-        className = "correct";
-    } else if (email.type === "suspicious") {
-        message = "Este correo parece sospechoso. Ten cuidado.";
-        className = "warning";
-    } else if (email.type === "malicious") {
-        message = "¡Alerta! Este correo es malicioso. No debiste abrirlo.";
-        className = "danger";
+    // Resaltar elemento seleccionado
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.style.backgroundColor = "#fff3cd";
     }
 
-    showResult(message, className);
-}
+    // Mostrar mensaje según el botón presionado
+    let message = "";
 
-// Mostrar resultado
-function showResult(text, className) {
-    const resultDiv = document.getElementById("result");
-    resultDiv.className = "result " + className;
-    resultDiv.textContent = text;
-    resultDiv.style.display = "block";
+    switch (elementId) {
+        case "sender":
+            message = "⚠️ El remitente parece falso. Observa que 'paypal-servicio.com' no es el dominio oficial de PayPal.";
+            break;
+        case "subject":
+            message = "🚨 El asunto genera urgencia ('Tu cuenta ha sido bloqueada'). Esto es común en correos de phishing.";
+            break;
+        case "link":
+            message = "🔍 El enlace no lleva al sitio oficial. Nunca hagas clic sin revisar el destino real.";
+            break;
+        case "attachment":
+            message = "🛑 Se incluye un archivo ejecutable (.exe). Evita abrir este tipo de archivos si no esperabas el correo.";
+            break;
+        case "body":
+            message = "👀 Revisa errores gramaticales o diseño poco profesional. Son señales comunes de correos falsos.";
+            break;
+        default:
+            message = "Haz clic en un botón para aprender a identificar señales de phishing.";
+    }
+
+    document.getElementById("explanation").textContent = message;
 }
