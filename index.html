@@ -2,29 +2,30 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Phish Hunter - Detecta Correos Maliciosos</title>
+    <title>¿Cómo Detectar Correos Maliciosos?</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Phish Hunter</h1>
-        <p>Analiza el correo que acabas de recibir:</p>
+    <div class="container">
+        <h1>🔍 ¿Cómo Detectar un Correo Malicioso?</h1>
 
-        <div class="email-box">
-            <p><strong>De:</strong> <span id="sender"></span></p>
-            <p><strong>Asunto:</strong> <span id="subject"></span></p>
+        <div class="email-box" id="emailBox">
+            <p><strong>De:</strong> <span id="sender">soporte@paypal-servicio.com</span></p>
+            <p><strong>Asunto:</strong> <span id="subject">Tu cuenta ha sido bloqueada</span></p>
             <p><strong>Mensaje:</strong></p>
-            <p id="body"></p>
-            <p id="attachment"></p>
+            <p id="body">Hemos detectado actividad sospechosa en tu cuenta. Haz clic <a href="#" id="link">aquí</a> para verificar tu identidad.</p>
+            <p id="attachment"><strong>Adjunto:</strong> verificacion.pdf.exe</p>
         </div>
 
-        <div class="buttons">
-            <button onclick="deleteEmail()">Eliminar</button>
-            <button onclick="reportEmail()">Reportar</button>
-            <button onclick="openEmail()">Abrir</button>
+        <div class="steps">
+            <button onclick="highlight('sender')">Verificar Remitente</button>
+            <button onclick="highlight('subject')">Contenido Urgente</button>
+            <button onclick="highlight('link')">Analizar Enlace</button>
+            <button onclick="highlight('attachment')">Archivos Adjuntos</button>
+            <button onclick="highlight('body')">Errores Gramaticales</button>
         </div>
 
-        <div id="result" class="result"></div>
+        <div class="explanation" id="explanation">Haz clic en un botón para analizar el correo.</div>
     </div>
 
     <script src="script.js"></script>
